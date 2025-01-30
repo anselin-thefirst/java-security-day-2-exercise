@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -18,6 +20,13 @@ public class Item {
 
     @Column(name = "type")
     private String type;
+
+    @Column(name = "on_loan")
+    private boolean onLoan;
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.REMOVE) // not sure about the remove here
+//    @JsonManagedReference
+    private List<Loan> loansHistory;
 
     public Item(String name, String type) {
         this.name = name;
